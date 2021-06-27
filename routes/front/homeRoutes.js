@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const HomeController = require('../../app/Controllers/Front/HomeController');
+//const isLoggedIn = require('../../middlewares/isLoggedIn');
 
 router.get('/', HomeController.index);
 router.get('/brands', HomeController.brands);

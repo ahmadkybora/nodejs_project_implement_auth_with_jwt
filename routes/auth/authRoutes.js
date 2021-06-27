@@ -7,10 +7,9 @@ const AuthRequest = require('../../app/Requests/AuthRequest');
 //router.post('/login', AuthController.rememberMe);
 router.post('/login', AuthRequest.login, AuthController.login);
 router.post('/register', AuthRequest.register, AuthController.register);
-router.post('/logout', AuthController.logout);
+router.get('/logout', AuthController.logout);
 router.post('/forget-password', AuthController.forgetPassword);
 router.post('/reset-password', AuthController.resetPassword);
-
 
 router.get('/products', AuthController.pub);
 router.get('/product-categories', AuthController.pub);

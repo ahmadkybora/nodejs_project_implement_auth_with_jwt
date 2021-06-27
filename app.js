@@ -16,6 +16,18 @@ const environment = process.env.NODE_ENV; // development
 const cors = require('cors');
 const flash = require('connect-flash');
 const session = require('express-session');
+const redis = require('redis');
+const client = redis.createClient({
+    host: '127.0.0.1',
+    port: '6379',
+    password: ''
+});
+
+client.on('error', err => {
+    console.log('Error ' + err);
+});
+
+
 
 app.use(session({
     secret: 'secret',
@@ -100,8 +112,12 @@ app.use('/api/panel/product-categories', require('./routes/panel/productCategory
 app.use('/api/panel/products', require('./routes/panel/productRoutes'));
 app.use('/api/panel/article-categories', require('./routes/panel/articleCategoryRoutes'));
 app.use('/api/panel/articles', require('./routes/panel/articleRoutes'));
+// profile account
+//app.use('/api/profile-account', require('./routes/front/articleRoutes'));
 
 const port = process.env.PORT || 3001;
+const redis_port = process.env.PORT || 6379;
+
 app.listen(port, () =>{
     console.log(`Server started on port ${port}`);
 });

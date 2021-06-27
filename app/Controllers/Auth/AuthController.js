@@ -39,14 +39,32 @@ async function login(req, res) {
     const refreshToken = jwt.sign(user.username, process.env.REFRESH_TOKEN_SECRET);
     const accessToken = generateAccessToken(user.username, user.id);
 
-    Token.create({
-        token: accessToken,
-        userId: user.id,
-    }, {
-        include: {
-            model: User
+    Token.findOne({
+        where: {
+            userId: user.id
         }
-    });
+    })
+        .then((result) => {
+            if (result) {
+                Token.update({
+                    where: {
+                        userId: user.id,
+                    }
+                })
+            } else {
+                Token.create({
+                    token: accessToken,
+                    userId: user.id,
+                    //expireAt: {expiresIn: '150000s'},
+                    state: 'ACTIVE',
+                    //revoke: 0,
+                }, {
+                    include: {
+                        model: User
+                    }
+                });
+            }
+        });
 
     return res.status(200).json({
         state: true,
@@ -95,15 +113,25 @@ async function register(req, res) {
 }
 
 async function logout(req, res) {
-    /*let authHeader = req.headers['authorization'];
+    let authHeader = req.headers['authorization'];
     let token = authHeader && authHeader.split(' ')[1];
+    let user = jwt.decode(token);
 
-    return res.status(200).json({
-        state: true,
-        message: "You are successfully logged out!",
-        data: null,
-        errors: null
-    });*/
+    await Token.destroy({
+        where: {
+            userId: user.id
+        }
+    })
+        .then((result) => {
+            if (result) {
+                return res.status(200).json({
+                    state: true,
+                    message: "You are successfully logged out!",
+                    data: null,
+                    errors: null
+                });
+            }
+        })
 }
 
 async function forgetPassword(req, res) {
