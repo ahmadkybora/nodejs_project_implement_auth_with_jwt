@@ -113,7 +113,7 @@ app.use('/api/panel/products', require('./routes/panel/productRoutes'));
 app.use('/api/panel/article-categories', require('./routes/panel/articleCategoryRoutes'));
 app.use('/api/panel/articles', require('./routes/panel/articleRoutes'));
 // profile account
-//app.use('/api/profile-account', require('./routes/front/articleRoutes'));
+app.use('/api/profile/my-profile', require('./routes/profile/MyProfileRoutes'));
 
 const port = process.env.PORT || 3001;
 const redis_port = process.env.PORT || 6379;

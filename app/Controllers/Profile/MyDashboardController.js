@@ -1,4 +1,4 @@
-const DashboardController = {
+const MyDashboardController = {
     myFavorites,
     myOrders,
     myTransactions
@@ -13,4 +13,4 @@ async function myOrders() {
 async function myTransactions() {
 }
 
-module.exports = DashboardController;
+module.exports = MyDashboardController;

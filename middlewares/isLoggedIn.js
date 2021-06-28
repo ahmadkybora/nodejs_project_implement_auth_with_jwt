@@ -15,7 +15,7 @@ async function isLoggedIn(req, res, next) {
         }
     });
 
-    console.log(revoke);
+    //console.log(revoke);
 
     if (token == null && revoke == null) {
         return res.status(401).json({
