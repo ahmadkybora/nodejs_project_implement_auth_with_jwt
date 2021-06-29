@@ -27,8 +27,6 @@ client.on('error', err => {
     console.log('Error ' + err);
 });
 
-
-
 app.use(session({
     secret: 'secret',
     cookie: { maxAge: 60000 },
@@ -112,8 +110,10 @@ app.use('/api/panel/product-categories', require('./routes/panel/productCategory
 app.use('/api/panel/products', require('./routes/panel/productRoutes'));
 app.use('/api/panel/article-categories', require('./routes/panel/articleCategoryRoutes'));
 app.use('/api/panel/articles', require('./routes/panel/articleRoutes'));
+app.use('/api/panel/banks', require('./routes/panel/bankRoutes'));
 // profile account
 app.use('/api/profile/my-profile', require('./routes/profile/MyProfileRoutes'));
+app.use('/api/profile/my-transactions', require('./routes/profile/MyTransactionsRoutes'));
 
 const port = process.env.PORT || 3001;
 const redis_port = process.env.PORT || 6379;
@@ -122,6 +122,10 @@ app.listen(port, () =>{
     console.log(`Server started on port ${port}`);
 });
 
+const Transaction = require('./app/Models/TransactionModel');
+const Bank = require('./app/Models/BankModel');
+app.use(Bank);
+app.use(Transaction);
 /*const ArticleLike = require('./app/Models/ArticleLikeModel');
 const ProductLike = require('./app/Models/ProductLikeModel');
 const ProductFavorite = require('./app/Models/ProductFavoriteModel');

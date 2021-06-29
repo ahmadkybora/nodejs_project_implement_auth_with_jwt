@@ -3,7 +3,7 @@ const router = express.Router();
 const UserController = require('../../app/Controllers/Panel/UserController');
 const isLoggedIn = require('../../middlewares/isLoggedIn');
 
-router.get('/', isLoggedIn, UserController.index);
+router.get('/', /*isLoggedIn,*/ UserController.index);
 //router.get('/:id', isLoggedIn, UserController.show);
 router.post('/store', isLoggedIn, UserController.store);
 router.get('/edit/:id', isLoggedIn, UserController.edit);

@@ -1,5 +1,5 @@
-const User = require('../../Models/UserModel');
-const userRequest = require('../../../app/Requests/userRequest');
+const Bank = require('../../Models/BankModel');
+const BankRequest = require('../../../app/Requests/BankRequest');
 const Validator = require('fastest-validator');
 const v = new Validator();
 const Handler = require('../../../app/Exceptions/Handler');
@@ -8,23 +8,17 @@ const Formidable = require('formidable');
 const uuid = require('uuid').v4;
 const bcrypt = require('bcrypt');
 const {Op} = require("sequelize");
-const AccessControl = require('accesscontrol');
-const ac = new AccessControl();
 
-const UserController = {
+const BankController = {
     index,
-    show,
     store,
-    edit,
     update,
     destroy,
     search
 };
 
 async function index(req, res) {
-
-
-    /*const page = +req.query.page || 1;
+    const page = +req.query.page || 1;
     const perPage = 1;
 
     if (req.query.all === 'all') {
@@ -32,7 +26,7 @@ async function index(req, res) {
             state: true,
             message: "Success!",
             data: {
-                data: await User.findAll({
+                data: await Bank.findAll({
                     order: [
                         ['id', 'DESC']
                     ]
@@ -41,8 +35,8 @@ async function index(req, res) {
             errors: null
         });
     } else {
-        const numberOfUsers = await User.findAndCountAll();
-        const users = await User.findAll({
+        const numberOfUsers = await Bank.findAndCountAll();
+        const banks = await Bank.findAll({
             offset: ((page - 1) * perPage),
             limit: perPage,
             order: [
@@ -54,7 +48,7 @@ async function index(req, res) {
             state: true,
             message: "Success!",
             data: {
-                data: users,
+                data: banks,
                 current_page: page,
                 to: page + 1,
                 from: page - 1,
@@ -66,7 +60,7 @@ async function index(req, res) {
             },
             errors: null
         });
-    }*/
+    }
 }
 
 async function show(req, res) {
@@ -279,4 +273,4 @@ async function search(req, res) {
     }
 }
 
-module.exports = UserController;
+module.exports = BankController;
